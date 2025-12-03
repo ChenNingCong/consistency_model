@@ -1,4 +1,48 @@
-This is a tiny implementation of consistency model in Pytorch using diffusion transformer. See `https://zhuanlan.zhihu.com/p/1979687312045654245/` for more information
-We adopt the main architecture of diffusion transformer (`https://github.com/facebookresearch/DiT/blob/main/models.py`) without any modification, except that we remove the `learn_sigma` configuration from the model and replace it with `learn_v`. `learn_sigma` is used in old diffusion models to learn to predict the noise variance, but it's not quite used these days. Our model supports `learn_v`. When `learn_v` is False, the model will only output `w`. When `learn_v` is True, the model will output both `w` and `v`. `v` is just the normal ODE target (e.g. x1 - x0 in flow matching) and `w` is the vector field such that `f(t)w(x_t, t) = intergral of v from 0 to t`
-Follow `https://github.com/facebookresearch/DiT`'s instruction to install necessary dependencies.
-Run `python main.py` to run the code. By default, we do not use learned v.
+# Consistency Model with Diffusion Transformer
+
+A minimal PyTorch implementation of consistency models using diffusion transformers.
+
+## Overview
+
+This project implements consistency models with diffusion transformers. For more information, see [this article](https://zhuanlan.zhihu.com/p/1979687312045654245/).
+
+## Installation
+
+Follow the [DiT installation instructions](https://github.com/facebookresearch/DiT) to install the necessary dependencies.
+
+## Usage
+
+Run the following command to execute the code:
+
+```bash
+python main.py
+```
+
+**Note:** By default, learned v is not used.
+
+Generated samples are saved in the `result` folder.
+
+## Model Architecture
+
+This implementation adopts the main architecture from [DiT](https://github.com/facebookresearch/DiT/blob/main/models.py) with minimal modifications:
+
+### Key Changes
+
+- **Removed:** `learn_sigma` configuration (used in older diffusion models to predict noise variance)
+- **Added:** `learn_v` configuration
+
+### Model Outputs
+
+The model behavior depends on the `learn_v` parameter:
+
+- **When `learn_v = False`:** The model outputs only `w`
+- **When `learn_v = True`:** The model outputs both `w` and `v`
+
+Where:
+- **`v`:** The normal ODE target (e.g., `x₁ - x₀` in flow matching)
+- **`w`:** The vector field such that `f(t)w(x_t, t) = ∫₀ᵗ v`
+
+## References
+
+- [Diffusion Transformer (DiT)](https://github.com/facebookresearch/DiT)
+- [Implementation Details](https://zhuanlan.zhihu.com/p/1979687312045654245/)
