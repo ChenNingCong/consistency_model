@@ -20,7 +20,9 @@ python main.py
 
 **Note:** By default, learned v is not used.
 
-Generated samples are saved in the `result` folder.
+Generated samples are saved in the `output` folder. We provide some pre-generated image samples under the `result` folder. 
+
+![Mnist](result/mnist/160-onestep.png)
 
 ## Model Architecture
 
